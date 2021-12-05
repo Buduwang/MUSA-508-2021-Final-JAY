@@ -57,3 +57,27 @@ setwd("C:\\Users\\candice\\Desktop\\Class\\MUSA508 public policy analytics\\Fina
 bars<-st_read('Mesa_Bars.csv',crs='ESRI:102249')
 plot(bars)
 ```
+
+
+```{r}
+Mesa_Boundary <- 
+  st_read("Data/City Boundary.geojson") %>%
+  st_transform('ESRI:102649')
+
+fishnet <- 
+  st_make_grid(Mesa_Boundary,
+               cellsize = 500, 
+               square = TRUE) %>%
+  .[Mesa_Boundary] %>%            # <- MDH Added
+  st_sf() %>%
+  mutate(uniqueID = rownames(.))
+```
+
+```{r}
+Streetlights<-
+  st_read("Data/Streetlight Fixtures.geojson") %>%
+  st_transform('ESRI:102649')
+```
+```
+
+
